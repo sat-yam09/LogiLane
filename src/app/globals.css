@@ -885,3 +885,13 @@ nav,
     cursor: auto !important;
   }
 }
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor-container {
+    display: none !important;
+  }
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: auto !important;
+  }
+}
