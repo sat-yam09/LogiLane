@@ -1,0 +1,21 @@
+'use client';
+
+import React from 'react';
+import HeroSection from '@/components/HeroSection';
+import ServicesAwardList from '@/components/ServicesAwardList';
+import DispatchTerminal from '@/components/DispatchTerminal';
+
+export default function HomePage() {
+  return (
+    <div className="relative w-full overflow-hidden bg-[#FFFFFF]">
+      {/* 03 Hero Section with High-Definition Side-Faced Truck & 11x Layout */}
+      <HeroSection />
+
+      {/* 04 Services Corridor: Award List Hover (Direction-aware flip + stacked corner preview) */}
+      <ServicesAwardList />
+
+      {/* Carrier Ingress & Terminal Access Console */}
+      <DispatchTerminal />
+    </div>
+  );
+}

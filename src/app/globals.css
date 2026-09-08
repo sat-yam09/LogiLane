@@ -1,0 +1,872 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   LOGILANE — AUTOMOTIVE FLAGSHIP DESIGN SYSTEM
+   Polestar / Rivian / Volvo Trucks Standard
+   ========================================================================== */
+
+/* Poppins Webfont Declarations (All weights unified under 'Poppins') */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Light.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-Light.woff') format('woff'),
+    url('/fonts/poppins/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Regular.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-Regular.woff') format('woff'),
+    url('/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Medium.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-Medium.woff') format('woff'),
+    url('/fonts/poppins/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-SemiBold.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-SemiBold.woff') format('woff'),
+    url('/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Bold.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-Bold.woff') format('woff'),
+    url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-ExtraBold.woff2') format('woff2'),
+    url('/fonts/poppins/Poppins-ExtraBold.woff') format('woff'),
+    url('/fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Root Design Tokens */
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-panel: #FFFFFF;
+  --bg-surface: #F8FAFC;
+  --accent-crimson: #B3122E;
+  --accent-oxblood: #8B0000;
+  --accent-blue: #2563EB;
+  --accent-electric: #263EFF;
+  --accent-lime: #9dfc11;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --metal-steel: #64748B;
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --border-steel: rgba(100, 116, 139, 0.25);
+  --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-poppins: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-dm-sans: 'Poppins', sans-serif;
+  --font-anton: 'Poppins', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'IBM Plex Mono', monospace;
+  --ease-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base Styles */
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  cursor: default;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent-blue);
+  color: #FFFFFF;
+}
+
+/* Typography Helpers */
+.font-display,
+.font-poppins,
+.font-dm-sans {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-anton {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Universal Header & Navbar Character Spacing (-1px) in Poppins */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+.nav-toggle,
+.menu-link a,
+.award-name h1,
+.award-project h1 {
+  letter-spacing: -1px !important;
+}
+
+/* Custom Cursor Styles */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active {
+    cursor: none;
+  }
+
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active select,
+  body.custom-cursor-active textarea {
+    cursor: none;
+  }
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-crimson);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(15, 23, 42, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s var(--ease-mechanical), height 0.25s var(--ease-mechanical), border-color 0.25s, background-color 0.25s;
+}
+
+.cursor-ring.hover-active {
+  width: 48px;
+  height: 48px;
+  border-color: #2563EB;
+  background-color: rgba(37, 99, 235, 0.08);
+}
+
+.cursor-ring.drag-mode {
+  width: 56px;
+  height: 56px;
+  border-color: #B3122E;
+  background-color: rgba(179, 18, 46, 0.08);
+}
+
+.cursor-badge {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #0F172A;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  padding: 3px 8px;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Mechanical Magnetic Button */
+.btn-magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 26px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  background-color: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 9999px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  transition: border-color 0.3s var(--ease-mechanical), color 0.3s var(--ease-mechanical), box-shadow 0.3s var(--ease-mechanical);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.btn-magnetic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0F172A;
+  transform: translateX(-100%);
+  transition: transform 0.35s var(--ease-mechanical);
+  z-index: 0;
+}
+
+.btn-magnetic:hover::before {
+  transform: translateX(0);
+}
+
+.btn-magnetic:hover {
+  border-color: #0F172A;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
+}
+
+.btn-magnetic span,
+.btn-magnetic svg {
+  position: relative;
+  z-index: 1;
+}
+
+/* Underline Draw Links */
+.link-draw {
+  position: relative;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 300;
+  transition: color 0.25s var(--ease-mechanical);
+}
+
+.link-draw::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--accent-crimson);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-mechanical);
+}
+
+.link-draw:hover {
+  color: var(--text-primary);
+}
+
+.link-draw:hover::after {
+  transform: scaleX(1);
+}
+
+/* Clean Engineered Panel */
+.clean-panel {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 6px 18px -4px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.35s var(--ease-mechanical), box-shadow 0.35s var(--ease-mechanical);
+}
+
+.clean-panel:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.09), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+/* ==========================================================================
+   01 PRELOADER: Split-Screen Typographic Unveil Styles
+   ========================================================================== */
+.preloader,
+.split-overlay,
+.tags-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  pointer-events: none;
+}
+
+.preloader,
+.split-overlay {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: var(--font-dm-sans);
+}
+
+.preloader {
+  z-index: 10002;
+}
+
+.tags-overlay {
+  z-index: 10003;
+}
+
+.split-overlay {
+  z-index: 10001;
+}
+
+.intro-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.intro-title h1,
+.outro-title h1 {
+  font-family: var(--font-dm-sans);
+  text-transform: uppercase;
+  font-size: 5.1rem;
+  /* 85% of 6rem */
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 1000px) {
+
+  .intro-title h1,
+  .outro-title h1 {
+    font-size: 2.15rem;
+    /* 85% scale */
+  }
+}
+
+.outro-title {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 10rem);
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1000px) {
+  .outro-title {
+    left: calc(50% + 4rem);
+  }
+}
+
+.tag {
+  position: absolute;
+  width: max-content;
+  color: #5a5a5a;
+  overflow: hidden;
+  font-family: var(--font-dm-sans);
+}
+
+.tag p {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tag-1 {
+  top: 15%;
+  left: 15%;
+}
+
+.tag-2 {
+  bottom: 15%;
+  left: 25%;
+}
+
+.tag-3 {
+  bottom: 30%;
+  right: 15%;
+}
+
+/* Masking Pieces */
+.intro-title .char,
+.outro-title .char,
+.card .char {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.intro-title .char,
+.outro-title .char {
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 1000px) {
+
+  .intro-title .char,
+  .outro-title .char {
+    margin-top: 0.5rem;
+  }
+}
+
+.intro-title .char span,
+.outro-title .char span,
+.tag .word {
+  position: relative;
+  display: inline-block;
+  transform: translateY(-100%);
+  will-change: transform;
+}
+
+.card .char span {
+  position: relative;
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.intro-title .first-char {
+  transform-origin: top left;
+}
+
+/* ==========================================================================
+   02 FULL-SCREEN OVERLAY MENU: Clip-Path Wipe & Lerped Highlighter Styles
+   ========================================================================== */
+.menu-overlay {
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  color: #fefff8;
+  z-index: 9990;
+  will-change: clip-path;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  pointer-events: auto;
+}
+
+.menu-content {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 100%;
+  padding: 3rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+  font-family: var(--font-dm-sans);
+}
+
+@media (max-width: 1000px) {
+  .menu-content {
+    top: 25%;
+    padding: 2rem;
+  }
+}
+
+.menu-col p {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #a3a3a3;
+  user-select: none;
+}
+
+.menu-col:nth-child(2) {
+  text-align: right;
+}
+
+.menu-img {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+@media (max-width: 1000px) {
+  .menu-img {
+    display: none;
+  }
+}
+
+.menu-links-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: max-content;
+  padding: 2.5rem 4rem;
+  display: flex;
+  gap: 2.5rem;
+  will-change: transform;
+}
+
+@media (max-width: 1000px) {
+  .menu-links-wrapper {
+    flex-direction: column;
+    gap: 0;
+    padding: 2rem;
+    width: 100%;
+  }
+}
+
+.menu-link {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.menu-link a {
+  font-family: var(--font-anton);
+  font-size: 9rem;
+  font-weight: 500;
+  letter-spacing: -0.18rem;
+  display: inline-block;
+  overflow: hidden;
+  color: #fefff8;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+}
+
+@media (max-width: 1000px) {
+  .menu-link a {
+    font-size: 3.6rem;
+    letter-spacing: -0.05rem;
+  }
+}
+
+.menu-link a > span:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.menu-link a .char {
+  display: inline-block;
+  will-change: transform;
+}
+
+.link-highlighter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 0.6rem;
+  background-color: var(--accent-lime);
+  will-change: transform, width;
+}
+
+@media (max-width: 1000px) {
+  .link-highlighter {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   04 AWARDS LIST: Direction-Aware Row Flip + Stacked Image Preview
+   ========================================================================== */
+.awards-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.awards-list {
+  border-top: 1px solid rgba(15, 23, 42, 0.12);
+  width: 100%;
+}
+
+.award {
+  height: 80px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.award-wrapper {
+  position: relative;
+  height: 240px;
+  will-change: transform;
+  transform: translateY(-160px);
+}
+
+.award-name,
+.award-project {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 32px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.award-name {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+.award-project {
+  background-color: #0F172A;
+  color: #FFFFFF;
+}
+
+.award-name h1,
+.award-project h1 {
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+
+  .award-name h1,
+  .award-project h1 {
+    font-size: 1.15rem;
+  }
+}
+
+.award-preview {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 28vw;
+  height: 28vw;
+  max-width: 360px;
+  max-height: 360px;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45);
+  background-color: #000;
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.award-preview.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.award-preview img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   05 GLOBAL ELECTRIC BLUE TEXT REVEAL SYSTEM (#263EFF)
+   ========================================================================== */
+.reveal-text-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.reveal-text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  vertical-align: top;
+  line-height: inherit;
+  will-change: clip-path;
+}
+
+.reveal-text-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  color: #263EFF;
+  pointer-events: none;
+  vertical-align: top;
+  line-height: inherit;
+  will-change: clip-path;
+  text-shadow: 0 0 16px rgba(38, 62, 255, 0.75), 0 0 32px rgba(38, 62, 255, 0.45);
+}
+
+.reveal-laser-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #263EFF;
+  box-shadow: 0 0 12px 3px rgba(38, 62, 255, 0.9), 0 0 24px 6px rgba(38, 62, 255, 0.5);
+  border-radius: 9999px;
+  z-index: 3;
+  pointer-events: none;
+  transform: translateX(-50%);
+  opacity: 0;
+  will-change: left, opacity;
+}
+
+/* ==========================================================================
+   06 INFINITE MARQUEE SYSTEM
+   ========================================================================== */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* ==========================================================================
+   07 EXACT CODEPEN myOVZYO SPLIT-SCREEN MAP STYLES
+   ========================================================================== */
+#s {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 160vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+#s .map {
+  position: absolute;
+  z-index: 99;
+  width: 50%;
+  height: 100vh;
+}
+
+@media (max-width: 1023px) {
+  #s .map {
+    position: relative;
+    width: 100% !important;
+    height: 60vh;
+  }
+}
+
+#s .info {
+  position: relative;
+  left: 50%;
+  padding: 5%;
+  width: 45%;
+  font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 1023px) {
+  #s .info {
+    left: 0;
+    width: 100%;
+    padding: 6%;
+  }
+}
+
+.close-map {
+  opacity: 0;
+  z-index: 9999;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  padding: 10px;
+  border: none;
+  background: #223e6b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.expand-map {
+  border: none;
+  background: #223e6b;
+  margin-top: 10px;
+  font-size: 1.25rem;
+  border-radius: 10px;
+  padding: 8px 20px;
+  color: #fff;
+  cursor: pointer;
+}

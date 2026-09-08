@@ -1,0 +1,10 @@
+node_modules
+.next
+.gemini
+out
+dist
+.env*.local
+.DS_Store
+*.log
+
+.agents
