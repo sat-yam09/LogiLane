@@ -895,3 +895,21 @@ nav,
     cursor: auto !important;
   }
 }
+
+/* ==========================================================================
+   09 RESPONSIVE NAVBAR
+   ========================================================================== */
+.nav-bar {
+  mix-blend-mode: difference;
+}
+
+@media (max-width: 1024px) {
+  .nav-bar {
+    mix-blend-mode: normal;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}

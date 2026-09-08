@@ -236,7 +236,7 @@ export default function Navigation() {
   return (
     <div ref={rootRef} className="select-none">
       {/* Fixed Top Bar with mix-blend-mode: difference for universal contrast */}
-      <nav className="fixed top-0 left-0 w-full px-6 sm:px-12 py-6 flex justify-between items-center z-[9999] pointer-events-auto mix-blend-difference text-white">
+      <nav className="fixed top-0 left-0 w-full px-6 sm:px-12 py-6 flex justify-between items-center z-[9999] pointer-events-auto text-white nav-bar">
         {/* Left Side: Brand Logo & Wordmark */}
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 flex items-center justify-center bg-white text-black rounded-sm font-mono text-xs font-bold shadow-xs">
