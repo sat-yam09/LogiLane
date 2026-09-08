@@ -870,3 +870,18 @@ nav,
   color: #fff;
   cursor: pointer;
 }
+
+/* ==========================================================================
+   08 HIDE CUSTOM CURSOR ON TABLET & MOBILE
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .custom-cursor-container {
+    display: none !important;
+  }
+  body.custom-cursor-active {
+    cursor: auto !important;
+  }
+  body.custom-cursor-active * {
+    cursor: auto !important;
+  }
+}

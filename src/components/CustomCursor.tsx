@@ -8,8 +8,8 @@ export default function CustomCursor() {
   const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only activate on devices with fine pointer (mouse)
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    // Only activate on desktop with fine pointer (mouse) and wide screen
+    if (window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 1024) return;
 
     document.body.classList.add('custom-cursor-active');
 
