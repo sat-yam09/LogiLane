@@ -1,16 +1,36 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 
 export default function Navigation() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
   const isAnimatingRef = useRef(false);
   const isOpenRef = useRef(false);
 
   // Link items according to the logistics platform theme
   const links = ['About', 'Corridors', 'Services', 'Simulator', 'Hardware', 'Terminal'];
+
+  useEffect(() => {
+    const handleVideoEnded = () => {
+      setNavVisible(true);
+    };
+
+    window.addEventListener('hero-video-ended', handleVideoEnded);
+
+    // Safety fallback: reveal nav after 5.2s in case video is blocked or skipped
+    const fallbackTimer = setTimeout(() => {
+      setNavVisible(true);
+    }, 5200);
+
+    return () => {
+      window.removeEventListener('hero-video-ended', handleVideoEnded);
+      clearTimeout(fallbackTimer);
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -30,10 +50,10 @@ export default function Navigation() {
     const overlay = root.querySelector('.menu-overlay') as HTMLElement;
     const content = root.querySelector('.menu-content') as HTMLElement;
     const linksWrapper = root.querySelector('.menu-links-wrapper') as HTMLElement;
-    const highlighter = root.querySelector('.link-highlighter') as HTMLElement;
+    const highlighter = root.querySelector('.link-highlighter') as HTMLElement | null;
     const linkEls = Array.from(root.querySelectorAll('.menu-link')) as HTMLElement[];
 
-    if (!overlay || !linksWrapper || !highlighter) return;
+    if (!overlay || !linksWrapper) return;
 
     const isDesktop = window.innerWidth >= 1000;
 
@@ -50,17 +70,20 @@ export default function Navigation() {
     gsap.set(overlay, {
       clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
       pointerEvents: 'none',
+      visibility: 'hidden',
     });
     gsap.set(content, { y: '50%', opacity: 0.25 });
     gsap.set(
       linkEls.map((l) => l.querySelector('a')),
       { y: '150%' }
     );
-    gsap.set(highlighter, { y: '150%' });
+    if (highlighter) {
+      gsap.set(highlighter, { y: '150%' });
+    }
 
-    // Measure highlighter to first link
+    // Measure highlighter to first link if present
     const firstLink = linkEls[0];
-    if (firstLink) {
+    if (firstLink && highlighter) {
       const firstSpan = firstLink.querySelector('a > span') as HTMLElement;
       if (firstSpan) {
         const w = firstSpan.offsetWidth || 280;
@@ -149,10 +172,12 @@ export default function Navigation() {
       currentHighlighterWidth += (targetHighlighterWidth - currentHighlighterWidth) * 0.08;
 
       gsap.set(linksWrapper, { x: currentX });
-      gsap.set(highlighter, {
-        x: currentHighlighterX,
-        width: currentHighlighterWidth,
-      });
+      if (highlighter) {
+        gsap.set(highlighter, {
+          x: currentHighlighterX,
+          width: currentHighlighterWidth,
+        });
+      }
 
       if (isOpenRef.current) {
         animationFrameId = requestAnimationFrame(lerpLoop);
@@ -183,12 +208,12 @@ export default function Navigation() {
     const overlay = root.querySelector('.menu-overlay') as HTMLElement;
     const content = root.querySelector('.menu-content') as HTMLElement;
     const linksWrapper = root.querySelector('.menu-links-wrapper') as HTMLElement;
-    const highlighter = root.querySelector('.link-highlighter') as HTMLElement;
+    const highlighter = root.querySelector('.link-highlighter') as HTMLElement | null;
     const anchors = Array.from(root.querySelectorAll('.menu-link a')) as HTMLElement[];
 
     if (!isOpenRef.current) {
       // OPEN SEQUENCE
-      gsap.set(overlay, { pointerEvents: 'auto' });
+      gsap.set(overlay, { pointerEvents: 'auto', visibility: 'visible' });
       gsap.to(overlay, {
         clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)',
         duration: 1.25,
@@ -204,7 +229,9 @@ export default function Navigation() {
 
       gsap.to(content, { y: '0%', opacity: 1, duration: 1.5, ease: 'expo.out' });
       gsap.to(anchors, { y: '0%', duration: 1.25, stagger: 0.1, delay: 0.25, ease: 'expo.out' });
-      gsap.to(highlighter, { y: '0%', duration: 1, delay: 1, ease: 'expo.out' });
+      if (highlighter) {
+        gsap.to(highlighter, { y: '0%', duration: 1, delay: 1, ease: 'expo.out' });
+      }
     } else {
       // CLOSE SEQUENCE
       gsap.to(anchors, { y: '-200%', duration: 1.25, ease: 'expo.out' });
@@ -217,9 +244,12 @@ export default function Navigation() {
           gsap.set(overlay, {
             clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
             pointerEvents: 'none',
+            visibility: 'hidden',
           });
           gsap.set(anchors, { y: '150%' });
-          gsap.set(highlighter, { y: '150%' });
+          if (highlighter) {
+            gsap.set(highlighter, { y: '150%' });
+          }
           gsap.set(content, { y: '50%', opacity: 0.25 });
           gsap.set(root.querySelectorAll('.menu-link'), { overflow: 'hidden' });
           gsap.set(linksWrapper, { x: 0 });
@@ -235,8 +265,8 @@ export default function Navigation() {
 
   return (
     <div ref={rootRef} className="select-none">
-      {/* Fixed Top Bar with mix-blend-mode: difference for universal contrast */}
-      <nav className="fixed top-0 left-0 w-full px-6 sm:px-12 py-6 flex justify-between items-center z-[9999] pointer-events-auto text-white nav-bar">
+      {/* Fixed Top Bar with smooth fade-in after video completes */}
+      <nav className={`fixed top-0 left-0 w-full px-6 sm:px-12 py-6 flex justify-between items-center z-[9999] text-white nav-bar transition-all duration-1000 ease-out ${navVisible ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-4'}`}>
         {/* Left Side: Brand Logo & Wordmark */}
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 flex items-center justify-center bg-white text-black rounded-sm font-mono text-xs font-bold shadow-xs">
@@ -272,7 +302,7 @@ export default function Navigation() {
 
       {/* Full-Screen Dark Overlay with Animated Clip-Path */}
       <div className="menu-overlay">
-        {/* Meta Content (Two Columns) */}
+        {/* Meta Content (Two Columns + Center Logistics Cinematic Frame) */}
         <div className="menu-content">
           <div className="menu-col">
             <p>
@@ -288,6 +318,25 @@ export default function Navigation() {
               <br />
               +1 (800) 582-7490
             </p>
+          </div>
+
+          {/* Center Logistics Image from folder */}
+          <div className="hidden md:flex flex-col items-center justify-center pointer-events-auto">
+            <div className="relative w-72 sm:w-80 md:w-96 lg:w-[480px] xl:w-[540px] h-44 sm:h-52 md:h-60 lg:h-68 rounded-md overflow-hidden border border-white/20 shadow-2xl group bg-neutral-900">
+              <Image
+                src="/images/logistics/truck-highway.jpg"
+                alt="LogiLane Autonomous Logistics Corridor"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95"
+                sizes="(max-width: 1024px) 380px, 540px"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-white/90 uppercase tracking-widest pointer-events-none">
+                <span className="font-semibold tracking-wider">CORRIDOR 01 // FREIGHT ARTERY</span>
+                <span className="text-white/60">AUTONOMOUS L4</span>
+              </div>
+            </div>
           </div>
 
           <div className="menu-col">
@@ -307,8 +356,8 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Oversized Anton Links Row with Per-Character Roll (Exact Original Animation & Style) */}
-        <div className="menu-links-wrapper gap-12 sm:gap-16">
+        {/* Oversized Anton Links Row with Per-Character Roll */}
+        <div className="menu-links-wrapper gap-20 sm:gap-24 lg:gap-32">
           {links.map((item, idx) => (
             <div key={idx} className="menu-link">
               <a
@@ -346,8 +395,6 @@ export default function Navigation() {
               </a>
             </div>
           ))}
-          {/* Lime tracking highlighter bar */}
-          <div className="link-highlighter" />
         </div>
       </div>
     </div>

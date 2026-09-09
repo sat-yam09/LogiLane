@@ -5,6 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import CorridorInsights from '@/components/CorridorInsights';
 import ServicesAwardList from '@/components/ServicesAwardList';
+import PartnersSection from '@/components/PartnersSection';
 import DispatchTerminal from '@/components/DispatchTerminal';
 
 export default function HomePage() {
@@ -21,6 +22,9 @@ export default function HomePage() {
 
       {/* 04 Services Corridor: Award List Hover (Direction-aware flip + stacked corner preview) */}
       <ServicesAwardList />
+
+      {/* 04.5 Global Carrier Alliances & Partners (Airlines + Shipping Lines) */}
+      <PartnersSection />
 
       {/* Carrier Ingress & Terminal Access Console */}
       <DispatchTerminal />

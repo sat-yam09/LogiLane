@@ -63,7 +63,7 @@ const BG_WORDS = [
    ═══════════════════════════════════════════════════════════════════ */
 
 const FeatureIcon = ({ type }: { type: string }) => {
-  const cls = 'w-4 h-4 text-[#2563EB] shrink-0';
+  const cls = 'w-4 h-4 text-white/80 shrink-0';
   switch (type) {
     case 'cpu':    return <Cpu className={cls} />;
     case 'truck':  return <Truck className={cls} />;
@@ -409,8 +409,8 @@ export default function AboutSection() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse" />
-              <span className="font-mono text-xs font-semibold tracking-widest text-[#2563EB] uppercase">
+              <span className="inline-block w-2 h-2 rounded-full bg-white/60 animate-pulse" />
+              <span className="font-mono text-xs font-medium tracking-widest text-slate-400 uppercase">
                 COMPANY ARCHITECTURE // LEVEL 4 FREIGHT
               </span>
             </div>
@@ -477,7 +477,7 @@ export default function AboutSection() {
                   <span className="font-mono text-[11px] font-bold text-[#121212] bg-[#ffffff] px-2.5 py-1 rounded-sm tracking-wider">
                     {chapter.step}
                   </span>
-                  <span className="font-mono text-[11px] font-semibold tracking-wider text-[#2563EB] uppercase">
+                  <span className="font-mono text-[11px] font-medium tracking-wider text-slate-400 uppercase">
                     {chapter.category}
                   </span>
                 </div>
@@ -499,8 +499,8 @@ export default function AboutSection() {
                 </p>
 
                 {/* Stat Card + Rolling Counter — fade-up */}
-                <div className="stat-card p-6 sm:p-8 bg-[#1a1a1a] border border-white/10 rounded-md hover:border-[#2563EB]/40 transition-colors mb-6">
-                  <div className="font-mono text-[11px] font-semibold text-[#2563EB] tracking-widest uppercase mb-2">
+                <div className="stat-card p-6 sm:p-8 bg-[#1a1a1a] border border-white/10 rounded-md hover:border-white/20 transition-colors mb-6">
+                  <div className="font-mono text-[11px] font-medium text-slate-400 tracking-widest uppercase mb-2">
                     {chapter.stats.label}
                   </div>
                   <div className="flex items-baseline gap-1 mb-1">

@@ -145,7 +145,6 @@ h5,
 h6,
 nav,
 .nav-toggle,
-.menu-link a,
 .award-name h1,
 .award-project h1 {
   letter-spacing: -1px !important;
@@ -549,8 +548,14 @@ nav,
   width: max-content;
   padding: 2.5rem 4rem;
   display: flex;
-  gap: 2.5rem;
+  gap: 5.5rem;
   will-change: transform;
+}
+
+@media (min-width: 1280px) {
+  .menu-links-wrapper {
+    gap: 7rem;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -570,9 +575,9 @@ nav,
 
 .menu-link a {
   font-family: var(--font-anton);
-  font-size: 9rem;
-  font-weight: 500;
-  letter-spacing: -0.18rem;
+  font-size: 8.5rem;
+  font-weight: 600;
+  letter-spacing: -0.055em !important;
   display: inline-block;
   overflow: hidden;
   color: #fefff8;
@@ -586,7 +591,7 @@ nav,
 @media (max-width: 1000px) {
   .menu-link a {
     font-size: 3.6rem;
-    letter-spacing: -0.05rem;
+    letter-spacing: -0.035em !important;
   }
 }
 
@@ -603,19 +608,7 @@ nav,
 }
 
 .link-highlighter {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 400px;
-  height: 0.6rem;
-  background-color: var(--accent-lime);
-  will-change: transform, width;
-}
-
-@media (max-width: 1000px) {
-  .link-highlighter {
-    display: none;
-  }
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -625,14 +618,14 @@ nav,
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #121212;
+  color: #FFFFFF;
   padding: 6rem 0;
   overflow: hidden;
 }
 
 .awards-list {
-  border-top: 1px solid rgba(15, 23, 42, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
 }
 
@@ -657,19 +650,56 @@ nav,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 32px;
+  padding: 5px 1.5rem;
   cursor: pointer;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 640px) {
+  .award-name,
+  .award-project {
+    padding: 5px 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .award-name,
+  .award-project {
+    padding: 5px 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .award-name,
+  .award-project {
+    padding: 5px 4rem;
+  }
 }
 
 .award-name {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: #121212;
+  color: #FFFFFF;
 }
 
 .award-project {
-  background-color: #0F172A;
+  background-color: #1A1A1E;
   color: #FFFFFF;
+  border-left: 4px solid #38BDF8;
+  box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.05);
+}
+
+/* Partner Logos Grayscale by default, full color on hover */
+.partner-logo-item {
+  filter: grayscale(100%);
+  opacity: 0.72;
+  transition: filter 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: filter, opacity, transform;
+}
+
+.group:hover .partner-logo-item {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .award-name h1,
@@ -752,27 +782,55 @@ nav,
   width: 100%;
   height: 100%;
   z-index: 2;
-  color: #263EFF;
+  color: transparent;
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   pointer-events: none;
   vertical-align: top;
   line-height: inherit;
   will-change: clip-path;
-  text-shadow: 0 0 16px rgba(38, 62, 255, 0.75), 0 0 32px rgba(38, 62, 255, 0.45);
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.75), 0 0 35px rgba(30, 58, 138, 0.55);
 }
 
 .reveal-laser-line {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #263EFF;
-  box-shadow: 0 0 12px 3px rgba(38, 62, 255, 0.9), 0 0 24px 6px rgba(38, 62, 255, 0.5);
+  top: -4px;
+  bottom: -4px;
+  width: 3.5px;
+  background: linear-gradient(180deg, #1E3A8A 0%, #2563EB 40%, #38BDF8 75%, #BAE6FD 100%);
+  box-shadow: 
+    0 0 10px 2px #38BDF8,
+    0 0 20px 4px rgba(37, 99, 235, 0.75),
+    0 0 35px 8px rgba(30, 58, 138, 0.5);
   border-radius: 9999px;
-  z-index: 3;
+  z-index: 30;
   pointer-events: none;
   transform: translateX(-50%);
   opacity: 0;
   will-change: left, opacity;
+}
+
+.reveal-laser-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(30, 58, 138, 0) 0%, rgba(56, 189, 248, 0.3) 50%, rgba(30, 58, 138, 0) 100%);
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+/* Dark Blue + Light Blue Gradient Utility Classes */
+.text-gradient-blue,
+.reveal-gradient-blue {
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 /* ==========================================================================
@@ -921,4 +979,37 @@ nav,
 #about .line {
   transform: translateY(100%);
   will-change: transform;
+}
+
+/* ==========================================================================
+   11 PARTNERS MARQUEE TICKER ANIMATIONS
+   ========================================================================== */
+@keyframes marqueeLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  animation: marqueeLeft 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  animation: marqueeRight 35s linear infinite;
+  will-change: transform;
+}
+
+.mask-fade {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }

@@ -127,7 +127,7 @@ export default function DispatchTerminal() {
         <div className="info relative left-0 lg:left-1/2 w-full lg:w-[45%] p-6 sm:p-10 lg:p-14 text-[#0F172A]">
           
           {/* Section Heading in Poppins SemiBold */}
-          <div className="font-mono text-xs font-semibold text-[#263EFF] uppercase tracking-[-0.5px] mb-3">
+          <div className="font-mono text-xs font-medium text-slate-500 uppercase tracking-wider mb-3">
             LOGILANE // FREIGHT ARTERIAL TERMINAL
           </div>
 

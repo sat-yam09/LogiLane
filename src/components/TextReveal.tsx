@@ -39,8 +39,8 @@ export default function TextReveal({
   ease = 'expo.out',
   start = 'top 85%',
   highlightWords = [],
-  highlightColor = '#263EFF',
-  blur = true,
+  highlightColor = 'inherit',
+  blur = false,
 }: TextRevealProps) {
   const containerRef = useRef<HTMLElement | null>(null);
 
@@ -69,13 +69,21 @@ export default function TextReveal({
               .toLowerCase()
               .replace(/[.,!?;:()'"]/g, '');
             if (normalizedHighlights.includes(clean)) {
-              (word as HTMLElement).style.color = highlightColor;
+              if (highlightColor === 'inherit' || highlightColor === 'gradient') {
+                const elWord = word as HTMLElement;
+                elWord.style.backgroundImage = 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #38BDF8 100%)';
+                elWord.style.webkitBackgroundClip = 'text';
+                elWord.style.webkitTextFillColor = 'transparent';
+                elWord.style.display = 'inline-block';
+              } else {
+                (word as HTMLElement).style.color = highlightColor;
+              }
             }
           });
         }
 
         if (prefersReduced) {
-          gsap.set(self.words, { opacity: 1, yPercent: 0, filter: 'none' });
+          gsap.set(self.words, { opacity: 1, yPercent: 0 });
           return gsap.timeline();
         }
 
@@ -84,7 +92,6 @@ export default function TextReveal({
         return gsap.from(self.words, {
           yPercent: 115,
           opacity: 0,
-          filter: blur ? 'blur(8px)' : 'none',
           duration,
           delay,
           ease,

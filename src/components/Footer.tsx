@@ -28,10 +28,10 @@ export default function Footer() {
               Corridors
             </div>
             <ul className="space-y-2.5 text-slate-400">
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">ORD ↔ DFW Spine</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">LAX ↔ PHX Gateway</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">SEA ↔ SLC Mountain</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">ATL ↔ MIA Coastal</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">ORD ↔ DFW Spine</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">LAX ↔ PHX Gateway</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">SEA ↔ SLC Mountain</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">ATL ↔ MIA Coastal</a></li>
             </ul>
           </div>
 
@@ -40,10 +40,10 @@ export default function Footer() {
               Hardware
             </div>
             <ul className="space-y-2.5 text-slate-400">
-              <li><a href="#awards" className="hover:text-[#38BDF8] transition-colors">Titan-8 Prime Mover</a></li>
-              <li><a href="#awards" className="hover:text-[#38BDF8] transition-colors">Solid-State LiDAR Array</a></li>
-              <li><a href="#awards" className="hover:text-[#38BDF8] transition-colors">Platoon Aerodynamics</a></li>
-              <li><a href="#awards" className="hover:text-[#38BDF8] transition-colors">Cryo-Pod Telemetry</a></li>
+              <li><a href="#awards" className="hover:text-white transition-colors">Titan-8 Prime Mover</a></li>
+              <li><a href="#awards" className="hover:text-white transition-colors">Solid-State LiDAR Array</a></li>
+              <li><a href="#awards" className="hover:text-white transition-colors">Platoon Aerodynamics</a></li>
+              <li><a href="#awards" className="hover:text-white transition-colors">Cryo-Pod Telemetry</a></li>
             </ul>
           </div>
 
@@ -52,10 +52,10 @@ export default function Footer() {
               Compliance
             </div>
             <ul className="space-y-2.5 text-slate-400">
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">DOT / FMVSS Level 4</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">Kingpin Sensor Spec</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">Zero-Fatigue Safety</a></li>
-              <li><a href="#terminal" className="hover:text-[#38BDF8] transition-colors">Carrier Agreement</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">DOT / FMVSS Level 4</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">Kingpin Sensor Spec</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">Zero-Fatigue Safety</a></li>
+              <li><a href="#terminal" className="hover:text-white transition-colors">Carrier Agreement</a></li>
             </ul>
           </div>
         </div>

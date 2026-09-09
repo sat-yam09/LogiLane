@@ -1,71 +1,174 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import TextReveal from './TextReveal';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const hasTriggeredRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Trigger reveal sequence when video reaches 4.8s (or ends)
+    const triggerReveal = () => {
+      if (hasTriggeredRef.current) return;
+      hasTriggeredRef.current = true;
+
+      // Freeze video on final frame
+      video.pause();
+      setIsRevealed(true);
+
+      // Notify global navigation to smoothly fade in
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('hero-video-ended'));
+      }
+
+      // Animate text rising from behind the truck
+      if (titleRef.current) {
+        gsap.fromTo(
+          titleRef.current,
+          { opacity: 0, y: 50, filter: 'blur(8px)' },
+          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out' }
+        );
+      }
+
+      // Animate road CTA buttons capsule
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 25, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.9, delay: 0.25, ease: 'power3.out' }
+        );
+      }
+    };
+
+    const handleTimeUpdate = () => {
+      // Trim point: 4.8s ensures the truck is frozen in center before any watermark
+      if (video.currentTime >= 4.8) {
+        triggerReveal();
+      }
+    };
+
+    const handleEnded = () => {
+      triggerReveal();
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    // Attempt video playback
+    video.play().catch(() => {
+      // If autoplay is blocked by browser policies, reveal after a short delay
+      setTimeout(triggerReveal, 2000);
+    });
+
+    // Safety fallback: reveal UI after 5s max
+    const fallbackTimer = setTimeout(triggerReveal, 5000);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+      clearTimeout(fallbackTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      // Smooth fade and upward drift as user scrolls past hero
+      gsap.to('.hero-scroll-container', {
+        opacity: 0,
+        y: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom 20%',
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative z-10 w-full min-h-screen flex flex-col justify-center pt-32 pb-16 px-6 sm:px-12 md:px-16 lg:px-24 overflow-hidden select-none bg-[#FFFFFF]">
-      {/* High-Definition Full Canyon & Truck Picture - 100% HD & Crystal Clear */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+    <section
+      ref={sectionRef}
+      className="relative z-10 w-full h-screen min-h-[640px] max-h-[1440px] overflow-hidden select-none bg-[#0c141c]"
+    >
+      <div className="hero-scroll-container relative w-full h-full">
+        {/* ── LAYER 0: Background Cinematic Video (Exact 16:9 Cropped Framing matching user reference, Non-looping, Freezes on End) ── */}
+        <video
+          ref={videoRef}
+          src="/videos/hero-truck-cropped.mp4"
+          muted
+          playsInline
+          autoPlay
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+        />
+
+        {/* ── LAYER 10: "Digital Logistic" Typography (Positioned in Sky Behind the Truck) ── */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center pointer-events-none pt-[8vh] sm:pt-[10vh] md:pt-[12vh] lg:pt-[14vh] px-4">
+          <h1
+            ref={titleRef}
+            className="font-display font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[9.5rem] text-white tracking-[-0.04em] uppercase text-center leading-[0.95] drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] opacity-0"
+            style={{ willChange: 'transform, opacity' }}
+          >
+            Digital Logistic
+          </h1>
+        </div>
+
+        {/* ── LAYER 20: Truck + Road Foreground Occlusion Layer (Matching 16:9 Cropped Cutout) ── */}
+        {/* When active, the truck body sits IN FRONT of the text, visually placing the letters BEHIND the truck */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/hero-truck-canyon.jpg"
-          alt="Autonomous Heavy Freight Transport in Canyon"
-          className="w-full h-full object-cover object-[center_38%] md:object-center filter contrast-[1.03] brightness-[1.0] scale-100"
+          src="/images/hero-truck-foreground-cropped.png"
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 z-20 w-full h-full object-cover object-center pointer-events-none transition-opacity duration-500 ease-out ${
+            isRevealed ? 'opacity-100' : 'opacity-0'
+          }`}
         />
-        {/* Targeted soft feathered light halo strictly behind the text on the left — leaves the truck, road, and canyon in full crystal-clear HD */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 65% 60% at 20% 42%, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0) 80%)'
-          }}
-        />
-      </div>
 
-      {/* Hero Content Area */}
-      <div className="relative z-10 max-w-3xl my-auto pt-4 flex flex-col items-start text-left">
-        {/* Headline with SplitText Kinetic Line & Word Mask Reveal */}
-        <TextReveal
-          as="h1"
-          className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] text-[#0F172A] tracking-[-1px] leading-[1.08] mb-5"
-          delay={0.25}
-          duration={1}
-          stagger={0.06}
-          highlightWords={['velocity']}
-          highlightColor="#263EFF"
+        {/* ── LAYER 30: Road Foreground CTA Buttons Capsule (Matching Reference Layout) ── */}
+        <div
+          ref={ctaRef}
+          className="absolute bottom-10 sm:bottom-14 md:bottom-16 lg:bottom-20 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center opacity-0 pointer-events-auto"
+          style={{ willChange: 'transform, opacity' }}
         >
-          Digital logistics, Flawless velocity.
-        </TextReveal>
+          <div className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 shadow-2xl">
+            <a
+              href="#terminal"
+              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-[#0F172A] text-white font-display text-xs sm:text-sm font-semibold tracking-[-0.5px] hover:bg-slate-800 transition-all duration-300 shadow-md group cursor-pointer"
+            >
+              <span>Get Instant Quote</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
 
-        {/* Subtitle with SplitText Reveal */}
-        <TextReveal
-          as="p"
-          className="font-display font-normal text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed max-w-xl mb-8 tracking-[-0.5px]"
-          delay={0.65}
-          duration={0.9}
-          stagger={0.02}
-        >
-          Autonomous heavy freight corridors, precision intermodal supply chains, and zero-dwell commercial transport.
-        </TextReveal>
-
-        {/* Action Buttons (Clean & Minimal) */}
-        <div className="flex flex-wrap items-center gap-4 pt-1">
-          <a
-            href="#terminal"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#0F172A] text-white font-display text-sm font-medium tracking-[-0.5px] hover:bg-[#263EFF] shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            <span>Get Instant Quote</span>
-            <ArrowUpRight className="w-4 h-4 text-white" />
-          </a>
-
-          <a
-            href="#awards"
-            className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/90 backdrop-blur-sm text-[#0F172A] border border-slate-300 font-display text-sm font-medium tracking-[-0.5px] hover:bg-white hover:border-slate-400 transition-all duration-300 shadow-2xs"
-          >
-            <span>View Services</span>
-          </a>
+            <a
+              href="#awards"
+              className="inline-flex items-center px-6 sm:px-8 py-3 rounded-full bg-white text-[#0F172A] font-display text-xs sm:text-sm font-semibold tracking-[-0.5px] hover:bg-slate-100 transition-all duration-300 shadow-md cursor-pointer"
+            >
+              <span>View Services</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

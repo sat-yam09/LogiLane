@@ -39,7 +39,7 @@ export default function RouteSimulator() {
           </div>
           <h2 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-[#0F172A] uppercase tracking-tight leading-tight mb-4">
             Simulate Freight <br />
-            <span className="text-[#263EFF] font-medium">Transit Velocity.</span>
+            <span className="text-[#0F172A] font-medium">Transit Velocity.</span>
           </h2>
           <p className="font-display font-normal text-sm md:text-base text-slate-700 leading-relaxed">
             Select a verified autonomous corridor to calculate continuous transit velocity, carbon offsets, and regulatory safety compliance.
@@ -71,10 +71,10 @@ export default function RouteSimulator() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2 font-mono text-xs text-[#0F172A] font-semibold">
                       <span>{route.originCode}</span>
-                      <ArrowRight className="w-3 h-3 text-[#2563EB]" />
+                      <ArrowRight className="w-3 h-3 text-slate-500" />
                       <span>{route.destCode}</span>
                     </div>
-                    <span className="font-mono text-[0.62rem] text-[#2563EB] font-medium uppercase px-2 py-0.5 bg-blue-100/70 rounded-xs">
+                    <span className="font-mono text-[0.62rem] text-slate-600 font-medium uppercase px-2 py-0.5 bg-slate-100 rounded-xs">
                       {route.corridorStatus}
                     </span>
                   </div>
@@ -128,7 +128,7 @@ export default function RouteSimulator() {
                       {currentRoute.origin} → {currentRoute.destination}
                     </h3>
                   </div>
-                  <div className="font-mono text-xs text-[#2563EB] bg-blue-50 px-3.5 py-1.5 border border-blue-200 rounded-sm font-medium">
+                  <div className="font-mono text-xs text-slate-700 bg-slate-100 px-3.5 py-1.5 border border-slate-200 rounded-sm font-medium">
                     PLATOON SYNC: {currentRoute.platoonEfficiency}
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default function RouteSimulator() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
                   <div className="bg-slate-50 border border-slate-200 p-5 rounded-sm">
                     <div className="flex items-center gap-1.5 font-mono text-[0.62rem] text-[#0F172A] uppercase mb-2 font-semibold">
-                      <Clock className="w-3.5 h-3.5 text-[#2563EB]" />
+                      <Clock className="w-3.5 h-3.5 text-slate-600" />
                       <span>AUTONOMOUS</span>
                     </div>
                     <div className="font-display font-light text-3xl text-[#0F172A]">

@@ -49,7 +49,7 @@ export default function StatsSection() {
               className="clean-panel p-8 sm:p-12 rounded-sm text-left flex flex-col justify-between bg-white border border-slate-200 shadow-sm"
             >
               <div>
-                <div className="font-mono text-xs text-[#2563EB] uppercase tracking-widest mb-6 font-semibold">
+                <div className="font-mono text-xs text-slate-500 uppercase tracking-widest mb-6 font-medium">
                   BENCHMARK 0{index + 1}
                 </div>
 

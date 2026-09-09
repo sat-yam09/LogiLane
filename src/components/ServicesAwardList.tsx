@@ -212,18 +212,18 @@ export default function ServicesAwardList() {
   }, []);
 
   return (
-    <section id="awards" ref={rootRef} className="awards-section relative bg-[#FFFFFF] py-20">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 lg:px-24 mb-10">
+    <section id="awards" ref={rootRef} className="awards-section relative bg-[#121212] text-[#FFFFFF] py-20 border-t border-white/10">
+      <div className="w-full px-6 sm:px-10 md:px-12 lg:px-16 mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <TextReveal as="div" delay={0.1} className="font-mono text-xs text-[#263EFF] uppercase tracking-widest mb-2 font-semibold">
+            <TextReveal as="div" delay={0.1} className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-2 font-medium">
               Recognition & Commercial Deployments
             </TextReveal>
-            <TextReveal as="h2" delay={0.2} className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-[#0F172A] uppercase tracking-tight" highlightWords={['Awards']}>
+            <TextReveal as="h2" delay={0.2} className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-[#FFFFFF] uppercase tracking-tight">
               Services & Awards.
             </TextReveal>
           </div>
-          <p className="font-mono text-xs text-[#64748B] uppercase tracking-wider">
+          <p className="font-mono text-xs text-slate-400 uppercase tracking-wider">
             [HOVER TO INSPECT HIGH-DEFINITION ASSETS]
           </p>
         </div>
@@ -236,8 +236,8 @@ export default function ServicesAwardList() {
             <div className="award-wrapper">
               {/* Panel 1: Default (Name / Type) */}
               <div className="award-name">
-                <h1 className="truncate pr-4">{item.name}</h1>
-                <h1 className="text-right text-slate-500 font-mono text-sm sm:text-base font-normal">
+                <h1 className="truncate pr-4 text-white">{item.name}</h1>
+                <h1 className="text-right text-slate-400 font-mono text-sm sm:text-base font-normal">
                   {item.type}
                 </h1>
               </div>
@@ -245,15 +245,15 @@ export default function ServicesAwardList() {
               {/* Panel 2: Inverted (Project / Label) */}
               <div className="award-project">
                 <h1 className="truncate pr-4 text-[#FFFFFF]">{item.project}</h1>
-                <h1 className="text-right text-emerald-400 font-mono text-sm sm:text-base font-medium">
+                <h1 className="text-right font-mono text-base sm:text-lg font-medium tracking-wider uppercase text-[#38BDF8] shrink-0">
                   {item.label}
                 </h1>
               </div>
 
               {/* Panel 3: Duplicated (Name / Type - Resting Position) */}
               <div className="award-name">
-                <h1 className="truncate pr-4">{item.name}</h1>
-                <h1 className="text-right text-slate-500 font-mono text-sm sm:text-base font-normal">
+                <h1 className="truncate pr-4 text-white">{item.name}</h1>
+                <h1 className="text-right text-slate-400 font-mono text-sm sm:text-base font-normal">
                   {item.type}
                 </h1>
               </div>

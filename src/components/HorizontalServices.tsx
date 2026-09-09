@@ -93,7 +93,7 @@ export default function HorizontalServices() {
                 key={service.id}
                 className={`clean-panel w-[320px] sm:w-[380px] md:w-[460px] p-8 md:p-10 flex flex-col justify-between rounded-sm flex-shrink-0 transition-all duration-500 ${
                   isFocus
-                    ? 'opacity-100 border-[#2563EB]/40 shadow-[0_24px_50px_rgba(37,99,235,0.09)] bg-white scale-[1.01]'
+                    ? 'opacity-100 border-slate-400 shadow-md bg-white scale-[1.01]'
                     : 'opacity-60 border-slate-200 bg-slate-50/70 hover:opacity-90 hover:bg-white'
                 }`}
               >
@@ -118,7 +118,7 @@ export default function HorizontalServices() {
                   <div className="space-y-2.5 mb-8">
                     {service.specs.map((spec, sIndex) => (
                       <div key={sIndex} className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                         <span className="font-display font-light text-xs text-[#475569]">
                           {spec}
                         </span>

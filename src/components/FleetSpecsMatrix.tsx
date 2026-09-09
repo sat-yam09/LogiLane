@@ -114,7 +114,7 @@ export default function FleetSpecsMatrix() {
           {FLEET_SPECS.map((group, index) => (
             <div key={group.category} className="clean-panel p-6 sm:p-8 rounded-sm bg-white border border-slate-200">
               <div className="flex items-center gap-3 border-b border-slate-100 pb-4 mb-6">
-                <span className="font-mono text-xs text-[#2563EB] font-semibold">
+                <span className="font-mono text-xs text-slate-500 font-medium">
                   0{index + 1}
                 </span>
                 <h3 className="font-display font-normal text-sm text-[#0F172A] tracking-wider uppercase">
