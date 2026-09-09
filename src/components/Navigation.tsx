@@ -10,7 +10,7 @@ export default function Navigation() {
   const isOpenRef = useRef(false);
 
   // Link items according to the logistics platform theme
-  const links = ['Corridors', 'Services', 'Simulator', 'Hardware', 'Terminal'];
+  const links = ['About', 'Corridors', 'Services', 'Simulator', 'Hardware', 'Terminal'];
 
   useEffect(() => {
     const root = rootRef.current;
@@ -313,7 +313,9 @@ export default function Navigation() {
             <div key={idx} className="menu-link">
               <a
                 href={
-                  item === 'Corridors'
+                  item === 'About'
+                    ? '#about'
+                    : item === 'Corridors'
                     ? '#'
                     : item === 'Services'
                     ? '#awards'

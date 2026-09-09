@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   LOGILANE — AUTOMOTIVE FLAGSHIP DESIGN SYSTEM
+   LOGILANE -- AUTOMOTIVE FLAGSHIP DESIGN SYSTEM
    Polestar / Rivian / Volvo Trucks Standard
    ========================================================================== */
 
@@ -912,4 +912,13 @@ nav,
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
+}
+/* ==========================================================================
+   10 SPLITTEXT MASKED LINE REVEAL -- initial hidden state
+   Scoped to #about so lines are invisible inside their overflow-hidden masks
+   before GSAP animates them into view.
+   ========================================================================== */
+#about .line {
+  transform: translateY(100%);
+  will-change: transform;
 }
