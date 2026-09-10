@@ -66,6 +66,35 @@
   font-style: normal;
 }
 
+/* Manrope Font Family (Variable 200-800 & static fallbacks) */
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/Manrope-Variable.woff2') format('woff2-variations'),
+    url('/fonts/manrope/Manrope-Variable.woff2') format('woff2'),
+    url('/fonts/manrope/Manrope-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/Manrope-Light.woff2') format('woff2'),
+    url('/fonts/manrope/Manrope-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope/Manrope-Regular.woff2') format('woff2'),
+    url('/fonts/manrope/Manrope-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
 /* Root Design Tokens */
 :root {
   --bg-primary: #FFFFFF;
@@ -86,8 +115,13 @@
   --font-poppins: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-dm-sans: 'Poppins', sans-serif;
   --font-anton: 'Poppins', sans-serif;
+  --font-manrope: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-jetbrains-mono), 'IBM Plex Mono', monospace;
   --ease-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.font-manrope {
+  font-family: var(--font-manrope);
 }
 
 /* Base Styles */
